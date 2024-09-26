@@ -1,3 +1,4 @@
+'use client'
 import {
   SignedIn,
   SignedOut,
@@ -6,16 +7,12 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import {
   NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-  NavigationMenuViewport,
 } from "~/components/ui/navigation-menu";
 
 const menuItems: { title: string; href: string }[] = [
@@ -40,15 +37,14 @@ export default function TopNav() {
       <div>
         <NavigationMenu>
           <NavigationMenuList>
-            {menuItems.map(({ title, href }) => (
-              <Link href={href} key={title} passHref>
+            {menuItems.map(({ title, href }, i) => (
                 <NavigationMenuLink
                   className={`${navigationMenuTriggerStyle()} text-black`}
-                  key={title}
+                  key={i + 1}
+                  href={href}
                 >
                   {title}
                 </NavigationMenuLink>
-              </Link>
             ))}
           </NavigationMenuList>
         </NavigationMenu>
