@@ -38,7 +38,7 @@ const chartConfig = {
 
 export default function HistoryWidget() {
   return (
-    <div className="h-[30rem] w-[50rem] rounded-lg bg-white">
+    <div>
       <Card>
         <CardHeader>
           <CardTitle>Area Chart</CardTitle>
