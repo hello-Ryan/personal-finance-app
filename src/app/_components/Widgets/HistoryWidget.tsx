@@ -1,0 +1,102 @@
+"use client";
+
+import { TrendingUp } from "lucide-react";
+import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "~/components/ui/chart";
+
+export const description = "A simple area chart";
+
+const chartData = [
+  { month: "January", savings: 18231 },
+  { month: "February", savings: 19124 },
+  { month: "March", savings: 20412 },
+  { month: "April", savings: 20994 },
+  { month: "May", savings: 21415 },
+  { month: "June", savings: 23819 },
+];
+
+const chartConfig = {
+  desktop: {
+    label: "Savings",
+    color: "hsl(var(--chart-1))",
+  },
+} satisfies ChartConfig;
+
+export default function HistoryWidget() {
+  const range = 6;
+  const { earliestMonth, latestMonth, year } = {
+    earliestMonth: "January",
+    latestMonth: "June",
+    year: "2024",
+  };
+  const percentage = 5.2;
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Savings history</CardTitle>
+        <CardDescription>
+          {`Showing total savings history over the past ${range} months`}
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <ChartContainer config={chartConfig}>
+          <AreaChart
+            accessibilityLayer
+            data={chartData}
+            margin={{
+              left: 12,
+              right: 12,
+            }}
+          >
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="month"
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tickFormatter={(value) => value.slice(0, 3)}
+            />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent indicator="line" />}
+            />
+            <Area
+              dataKey="savings"
+              type="natural"
+              fill="var(--color-desktop)"
+              fillOpacity={0.4}
+              stroke="var(--color-desktop)"
+            />
+          </AreaChart>
+        </ChartContainer>
+      </CardContent>
+      <CardFooter>
+        <div className="flex w-full items-start gap-2 text-sm">
+          <div className="grid gap-2">
+            <div className="flex items-center gap-2 font-medium leading-none">
+              {`Trending up by ${<p className={`${percentage <= 0 ? "text-green-400" : "text-red-400"}`}>${percentage}</p>}% this month`}
+              <TrendingUp className="h-4 w-4" />
+            </div>
+            <div className="flex items-center gap-2 leading-none text-muted-foreground">
+              {`${earliestMonth} - ${latestMonth} ${year}`}
+            </div>
+          </div>
+        </div>
+      </CardFooter>
+    </Card>
+  );
+}
