@@ -1,14 +1,16 @@
 import { db } from "~/server/db";
 import { TopNav } from "./_components";
+import { transactions } from "~/server/db/schema";
+import { auth } from "@clerk/nextjs/server";
 
 export default async function HomePage() {
-  const transactions = await db.query.transactions.findFirst()
-
+  const {userId} = auth()
+  console.log(userId)
   return (
     <main>
       <TopNav/>
       <div>
-        <p className="text-white">{transactions?.name}</p>
+        <p className="text-white">{}</p>
       </div>
       
     </main>
