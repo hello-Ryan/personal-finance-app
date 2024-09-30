@@ -7,7 +7,7 @@ Production URL: https://personal-finance-app-ebon.vercel.app/
 ## Stack
 - [Next.js](https://nextjs.org)
 - [Clerk authentication](https://clerk.com/)
-- [Prisma](https://prisma.io)
+- [shadcn/ui](https://ui.shadcn.com)
 - [Drizzle](https://orm.drizzle.team)
 - [Tailwind CSS](https://tailwindcss.com)
 
