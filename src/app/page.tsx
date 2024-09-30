@@ -10,7 +10,6 @@ export default async function HomePage() {
     <main>
       <TopNav/>
       <div>
-        <p className="text-white">{}</p>
       </div>
       
     </main>
