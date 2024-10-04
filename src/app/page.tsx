@@ -4,14 +4,9 @@ import { transactions } from "~/server/db/schema";
 import { auth } from "@clerk/nextjs/server";
 
 export default async function HomePage() {
-  const {userId} = auth()
-  console.log(userId)
   return (
     <main>
       <TopNav/>
-      <div>
-      </div>
-      
     </main>
   );
 }
