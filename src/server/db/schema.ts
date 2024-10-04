@@ -33,7 +33,7 @@ export const transactions = createTable("transaction", {
   id: serial("id").primaryKey().notNull(),
   userId: varchar("user_id", { length: 256 }).notNull(),
   categoryId: integer("category_id").references(() => categories.id),
-  name: varchar("name", { length: 256 }).notNull(),
+  title: varchar("title", { length: 256 }).notNull(),
   createdAt: timestamp("created_at", { withTimezone: true })
     .defaultNow()
     .notNull(),
