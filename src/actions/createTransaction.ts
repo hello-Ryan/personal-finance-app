@@ -1,5 +1,6 @@
 "use server";
 
+import CONSTANTS from "~/constants";
 import { db } from "~/server/db";
 import { transactions } from "~/server/db/schema";
 
@@ -30,15 +31,14 @@ export default async function createTransaction({
     })
     .returning({ insertedId: transactions.id });
   
-  // TODO create constants file for these responses
   if (success[0]) {
     return {
-      response: "SUCCESS",
+      response: CONSTANTS.RESPONSE.SUCCESS,
       userId: success[0].insertedId,
     };
   } else {
     return {
-      response: "FAIL",
+      response: CONSTANTS.RESPONSE.FAIL,
     }
   }
 }

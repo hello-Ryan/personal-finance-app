@@ -1,4 +1,6 @@
 import TopNav from "./TopNav";
-import { HistoryWidget, AddTransaction } from "./Widgets";
+import AddTransactionButton from "./AddTransactionButton";
+import { HistoryWidget } from "./Widgets";
 
-export { TopNav, HistoryWidget, AddTransaction };
+
+export { TopNav, HistoryWidget, AddTransactionButton};

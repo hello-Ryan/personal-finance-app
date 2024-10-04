@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -24,7 +24,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { useState } from "react";
 import { db } from "~/server/db";
 import { transactions } from "~/server/db/schema";
 // import { auth } from "@clerk/nextjs/server";
@@ -48,37 +47,34 @@ export async function AddTransaction({
   categories,
   userId,
 }: {
-  categories: { id: number; title: string }[]
-  userId: string
+  categories: { id: number; title: string }[];
+  userId: string;
 }) {
+  // const form = useForm<z.infer<typeof formSchema>>({
+  //   resolver: zodResolver(formSchema),
+  //   defaultValues: {
+  //     title: "",
+  //     date: new Date(),
+  //     description: "",
+  //     category: "",
+  //   },
+  // });
 
-  const [position, setPosition] = useState("bottom");
+  // async function onSubmit(values: z.infer<typeof formSchema>) {
+  //   const { title, description, date, category, amount } = values;
+  //   const categoryId = categories.find((x) => {
+  //     x.title === category;
+  //   })!.id;
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      title: "",
-      date: new Date(),
-      description: "",
-      category: "",
-    },
-  });
-
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    const { title, description, date, category, amount } = values;
-    const categoryId = categories.find((x) => {
-      x.title === category;
-    })!.id;
-
-    await db.insert(transactions).values({
-      title,
-      userId,
-      description,
-      date,
-      categoryId,
-      amount,
-    });
-  }
+  //   await db.insert(transactions).values({
+  //     title,
+  //     userId,
+  //     description,
+  //     date,
+  //     categoryId,
+  //     amount,
+  //   });
+  // }
 
   return (
     <Dialog>
@@ -115,22 +111,17 @@ export async function AddTransaction({
             </Label>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline">Open</Button>
+                <Button variant="outline">Select</Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
-                <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
+                <DropdownMenuLabel></DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuRadioGroup
-                  value={position}
-                  onValueChange={setPosition}
-                >
-                  <DropdownMenuRadioItem value="top">Top</DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="bottom">
-                    Bottom
-                  </DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="right">
-                    Right
-                  </DropdownMenuRadioItem>
+                <DropdownMenuRadioGroup>
+                  {categories.map((category) => (
+                    <DropdownMenuRadioItem value={category.title}>
+                      {category.title}
+                    </DropdownMenuRadioItem>
+                  ))}
                 </DropdownMenuRadioGroup>
               </DropdownMenuContent>
             </DropdownMenu>

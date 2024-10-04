@@ -2,10 +2,10 @@
 import { Button } from "~/components/ui/button";
 import createTransaction from "~/actions/createTransaction";
 
-export default function Test() {
+export default function AddTransactionButton() {
   return (
     <Button
-      variant="default"
+    type="submit"
       onClick={async () => {
         const result = await createTransaction({
           title: "hello",
