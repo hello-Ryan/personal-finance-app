@@ -5,7 +5,9 @@ import { sql } from "drizzle-orm";
 import {
   index,
   pgTableCreator,
+  real,
   serial,
+  time,
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
@@ -16,21 +18,24 @@ import {
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
-export const createTable = pgTableCreator((name) => `personal-finance-app_${name}`);
+export const createTable = pgTableCreator(
+  (name) => `personal-finance-app_${name}`,
+);
 
-export const posts = createTable(
-  "post",
+export const transactions = createTable(
+  "transaction",
   {
     id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }),
+    title: varchar("name", { length: 256 }).notNull(),
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
-      () => new Date()
+      () => new Date(),
     ),
-  },
-  (example) => ({
-    nameIndex: index("name_idx").on(example.name),
-  })
+    transactionDate: time("transactionDate", { withTimezone: true })
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    amount: real("amount").default(0)
+  }
 );
