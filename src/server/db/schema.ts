@@ -22,20 +22,18 @@ export const createTable = pgTableCreator(
   (name) => `personal-finance-app_${name}`,
 );
 
-export const transactions = createTable(
-  "transaction",
-  {
-    id: serial("id").primaryKey(),
-    title: varchar("name", { length: 256 }).notNull(),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
-      () => new Date(),
-    ),
-    transactionDate: time("transactionDate", { withTimezone: true })
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
-    amount: real("amount").default(0)
-  }
-);
+export const transactions = createTable("transaction", {
+  id: serial("id").primaryKey(),
+  userId: varchar("userId", { length: 256 }).notNull(),
+  title: varchar("name", { length: 256 }).notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
+    () => new Date(),
+  ),
+  transactionDate: timestamp("transaction_date", { withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  amount: real("amount").default(0),
+});
