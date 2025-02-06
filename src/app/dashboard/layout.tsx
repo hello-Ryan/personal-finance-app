@@ -1,8 +1,7 @@
 import "~/styles/globals.css";
-import { cookies } from "next/headers"
 
 import { type Metadata } from "next";
-import { SidebarProvider, SidebarTrigger } from "../../components/ui/sidebar";
+import { SidebarProvider, SidebarTrigger } from "~/components/ui/sidebar";
 
 export const metadata: Metadata = {
   title: "Finances simplified - Dashboard",
@@ -13,10 +12,8 @@ export const metadata: Metadata = {
 export default async function DashboardLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const cookieStore = await cookies()
-  const defaultOpen = cookieStore.get("sidebar:state")?.value === "true"
   return (
-    <SidebarProvider defaultOpen={defaultOpen}>
+    <SidebarProvider defaultOpen={true}>
       <main>
           <SidebarTrigger />
           {children}
