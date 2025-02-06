@@ -1,10 +1,12 @@
-export const dynamic = 'force-dynamic';
+import { AppSidebar } from "~/components/app-sidebar";
 
+export const dynamic = "force-dynamic";
 
 export default async function Dashboard() {
-  return (
-    <div className="bg-slate-700 min-h-screen">
-        Hello
-    </div>
-  );
+
+  return (<div className="w-screen min-h-screen max-h-screen">
+  <AppSidebar />
+  </div>
+  
+)
 }
