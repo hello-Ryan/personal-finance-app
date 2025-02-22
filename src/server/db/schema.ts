@@ -3,11 +3,9 @@
 
 import { sql } from "drizzle-orm";
 import {
-  index,
   pgTableCreator,
   real,
   serial,
-  time,
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
@@ -26,6 +24,7 @@ export const transactions = createTable("transaction", {
   id: serial("id").primaryKey(),
   userId: varchar("userId", { length: 256 }).notNull(),
   title: varchar("name", { length: 256 }).notNull(),
+  description: varchar("description", { length: 256 }).default(""),
   createdAt: timestamp("created_at", { withTimezone: true })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
