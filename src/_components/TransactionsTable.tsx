@@ -41,8 +41,8 @@ export default function TransactionsTable({
       </TableHeader>
       <TableBody>
         {transactions.map(
-          ({ title, description, transactionDate, amount, updatedAt }) => (
-            <TableRow>
+          ({ id, title, description, transactionDate, amount, updatedAt }) => (
+            <TableRow key={id}>
               <TableCell>{title}</TableCell>
               <TableCell>{description}</TableCell>
               <TableCell>
