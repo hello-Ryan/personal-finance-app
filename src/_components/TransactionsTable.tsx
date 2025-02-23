@@ -23,6 +23,7 @@ export interface Transaction {
 export interface TransactionsTableProps {
   transactions: Transaction[];
 }
+
 export default function TransactionsTable({
   transactions,
 }: TransactionsTableProps) {

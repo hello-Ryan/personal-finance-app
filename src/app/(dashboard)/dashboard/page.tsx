@@ -7,49 +7,29 @@ import TransactionsTable, {
 
 import { db } from "~/server/db";
 import { transactions } from "~/server/db/schema";
+import { getUserTransactions, saveUserTransaction } from "~/server/queries";
 
 export default async function Page() {
   const { userId } = auth();
+
   type TransactionType = typeof transactions.$inferInsert;
 
   if (!userId) {
     redirect("/");
   }
 
-  const transactionsFromDB = await db.query.transactions.findMany({
-    where: (users, { eq }) => eq(users.userId, userId),
-  });
+  const transactionsResponse = await getUserTransactions();
 
-  const transactionsFormated = transactionsFromDB.map(
-    ({
-      id,
-      title,
-      description,
-      createdAt,
-      updatedAt,
-      transactionDate,
-      amount,
-    }) =>
-      ({
-        id,
-        title,
-        description,
-        createdAt,
-        updatedAt,
-        transactionDate,
-        amount,
-      }) as Transaction,
-  );
   async function pushDB() {
     "use server";
-    await db.insert(transactions).values({
-      userId,
+    await saveUserTransaction({
       title: "Testing",
-      amount: Math.random() * 10,
       description: "Testing description",
+      amount: Math.random() * 10,
+      transactionDate: new Date(),
     } as TransactionType);
-    revalidatePath('/')
 
+    revalidatePath("/");
   }
 
   function DBbutton() {
@@ -58,11 +38,10 @@ export default async function Page() {
   }
 
   return (
-    <div className="flex min-h-screen w-screen items-center justify-center flex-col gap-2">
+    <div className="flex min-h-screen w-screen flex-col items-center justify-center gap-2">
       <DBbutton />
       <div className="w-3/4">
-      <TransactionsTable transactions={transactionsFormated} />
-
+        <TransactionsTable transactions={transactionsResponse} />
       </div>
     </div>
   );

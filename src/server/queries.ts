@@ -2,37 +2,67 @@ import "server-only";
 import { db } from "./db";
 import { auth } from "@clerk/nextjs/server";
 import { transactions } from "./db/schema";
+import { Transaction } from "~/_components/TransactionsTable";
+import { revalidatePath } from "next/cache";
+
+type TransactionType = typeof transactions.$inferInsert;
 
 export async function getUserTransactions() {
-  const user = auth();
+  const { userId } = auth();
 
-  if (!user.userId) {
+  if (!userId) {
     throw new Error("Unauthorised requst");
   }
 
-  const transactions = await db.query.transactions.findMany({
-    where: (model, { eq }) => eq(model.userId, user.userId),
-    orderBy: (model, { desc }) => desc(model.transactionDate),
+  const transactionsFromDB = await db.query.transactions.findMany({
+    where: (x, { eq }) => eq(x.userId, userId),
+    orderBy: (x, { desc }) => desc(x.transactionDate),
   });
 
-  return transactions;
+  const transactionsFormated = transactionsFromDB.map(
+    ({
+      id,
+      title,
+      description,
+      createdAt,
+      updatedAt,
+      transactionDate,
+      amount,
+    }) =>
+      ({
+        id,
+        title,
+        description,
+        createdAt,
+        updatedAt,
+        transactionDate,
+        amount,
+      }) as Transaction,
+  );
+
+  return transactionsFormated;
 }
 
-export async function saveUserTransaction(
-  title: string,
-  amount: number,
-  transactionDate: Date,
-) {
-  const user = auth();
+export async function saveUserTransaction({
+  title,
+  description,
+  amount,
+  transactionDate,
+}: TransactionType) {
+  const { userId } = auth();
 
-  if (!user.userId) {
+  if (!userId) {
     throw new Error("Unauthorised requst");
   }
 
   await db.insert(transactions).values({
     title,
-    userId: user.userId,
+    description,
+    userId,
     amount,
     transactionDate,
   });
+  revalidatePath("/");
 }
+
+export async function updateUserTransaction(){}
