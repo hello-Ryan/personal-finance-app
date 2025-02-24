@@ -1,16 +1,14 @@
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import TransactionsTable, {
-  Transaction,
-} from "~/_components/TransactionsTable";
 
-import { transactions } from "~/server/db/schema";
 import { getUserTransactions, saveUserTransaction } from "~/server/queries";
+import { DataTable } from "./data-table";
+import { columns } from "./columns";
+import { transactions } from "~/server/db/schema";
 
 export default async function Page() {
   const { userId } = await auth();
-
   type TransactionType = typeof transactions.$inferInsert;
 
   if (!userId) {
@@ -41,10 +39,21 @@ export default async function Page() {
   }
 
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center gap-2">
+    <div className="h-full w-full grid grid-flow-row grid-cols-1 grid-rows-2 gap-5">
+      <div>
+        <div className="grid grid-cols-2 grid-rows-1 h-full gap-5"> 
+            <div className="border border-gray-300 rounded-md p-2">
+                Graph
+            </div>
+            <div className="border border-gray-300 rounded-md p-2">
+              Pie chart
+            </div>
+        </div>
+      </div>
+      <div className="container mx-auto">
       <DBbutton />
-      <div className="w-3/4">
-        <TransactionsTable transactions={transactionsResponse} />
+
+        <DataTable columns={columns} data={transactionsResponse} />
       </div>
     </div>
   );

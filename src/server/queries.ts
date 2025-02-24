@@ -1,9 +1,10 @@
-import "server-only";
+"use server";
 import { db } from "./db";
 import { auth } from "@clerk/nextjs/server";
 import { transactions } from "./db/schema";
-import { Transaction } from "~/_components/TransactionsTable";
 import { revalidatePath } from "next/cache";
+import { eq } from "drizzle-orm";
+import { Transaction } from "~/app/(dashboard)/dashboard/columns";
 
 type TransactionType = typeof transactions.$inferInsert;
 
@@ -28,17 +29,16 @@ export async function getUserTransactions() {
       updatedAt,
       transactionDate,
       amount,
-    }) =>
-      ({
-        id,
-        title,
-        description,
-        createdAt,
-        updatedAt,
-        transactionDate,
-        amount,
-      }) as Transaction,
-  );
+    }) => ({
+      id,
+      title,
+      description,
+      createdAt,
+      updatedAt,
+      transactionDate,
+      amount,
+    }),
+  ) as Transaction[];
 
   return transactionsFormated;
 }
@@ -65,4 +65,15 @@ export async function saveUserTransaction({
   revalidatePath("/");
 }
 
-export async function updateUserTransaction(){}
+export async function updateUserTransaction() {}
+
+export async function deleteUserTransaction(id: number) {
+  const { userId } = auth();
+
+  if (!userId) {
+    throw new Error("Unauthorised requst");
+  }
+
+  await db.delete(transactions).where(eq(transactions.id, id));
+  revalidatePath("/");
+}

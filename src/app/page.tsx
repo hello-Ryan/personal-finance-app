@@ -1,3 +1,4 @@
+"use client";
 import {
   SignedIn,
   SignedOut,
@@ -6,7 +7,9 @@ import {
   UserButton,
   UserProfile,
 } from "@clerk/nextjs";
+import { redirect } from "next/dist/server/api-utils";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function HomePage() {
   return (
@@ -21,7 +24,7 @@ export default function HomePage() {
         </SignedIn>
       </nav>
 
-      <div className="flex h-max w-full items-center justify-center text-white">
+      <div className="flex h-max w-full items-center justify-center text-black">
         <Link href="dashboard" className="rounded-md bg-gray-600 p-3">
           To Dashboard
         </Link>
