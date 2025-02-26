@@ -24,7 +24,7 @@ export default function HomePage() {
         </SignedIn>
       </nav>
 
-      <div className="flex h-max w-full items-center justify-center text-black">
+      <div className="flex h-max w-full items-center justify-center text-white">
         <Link href="dashboard" className="rounded-md bg-gray-600 p-3">
           To Dashboard
         </Link>
