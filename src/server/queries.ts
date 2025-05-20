@@ -4,7 +4,6 @@ import { auth } from "@clerk/nextjs/server";
 import { transactions } from "./db/schema";
 import { revalidatePath } from "next/cache";
 import { eq } from "drizzle-orm";
-import { Transaction } from "~/app/(dashboard)/dashboard/columns";
 
 type TransactionType = typeof transactions.$inferInsert;
 
@@ -38,7 +37,7 @@ export async function getUserTransactions() {
       transactionDate,
       amount,
     }),
-  ) as Transaction[];
+  );
 
   return transactionsFormated;
 }

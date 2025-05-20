@@ -3,6 +3,7 @@
 
 import { sql } from "drizzle-orm";
 import {
+  boolean,
   pgTableCreator,
   real,
   serial,
@@ -35,4 +36,19 @@ export const transactions = createTable("transaction", {
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
   amount: real("amount").default(0),
+});
+
+export const savings = createTable("saving", {
+  id: serial("id").primaryKey(),
+  userId: varchar("userId", { length: 256 }).notNull(),
+  initial: boolean("initial").default(false).notNull(),
+  title: varchar("name", { length: 256 }).notNull(),
+  description: varchar("description", { length: 256 }).default(""),
+  amount: real("amount").default(0).notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
+    () => new Date(),
+  ),
 });
