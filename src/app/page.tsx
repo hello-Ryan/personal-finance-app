@@ -1,8 +1,8 @@
 import { SignInButton, SignUpButton } from "@clerk/nextjs";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import Button from "~/_components/ui/Button";
-import DashboardButton from "~/_components/ui/DashboardButton";
+import Button from "~/components/ui/Button";
+import DashboardButton from "~/components/ui/DashboardButton";
 
 export default async function HomePage() {
   const { userId } = auth();

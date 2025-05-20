@@ -1,6 +1,6 @@
-import Header from "~/_components/Layout/Header";
-import Sidebar from "~/_components/Layout/Sidebar";
-import PortfolioOverview from "~/_components/Portfolio/PortfolioOverview";
+import Header from "~/components/Layout/Header";
+import Sidebar from "~/components/Layout/Sidebar";
+import PortfolioOverview from "~/components/Portfolio/PortfolioOverview";
 
 
 export default async function Page() {
