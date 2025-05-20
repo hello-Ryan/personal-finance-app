@@ -42,7 +42,7 @@ export const savings = createTable("saving", {
   id: serial("id").primaryKey(),
   userId: varchar("userId", { length: 256 }).notNull(),
   initial: boolean("initial").default(false).notNull(),
-  title: varchar("name", { length: 256 }).notNull(),
+  title: varchar("title", { length: 256 }).notNull(),
   description: varchar("description", { length: 256 }).default(""),
   amount: real("amount").default(0).notNull(),
   createdAt: timestamp("created_at", { withTimezone: true })

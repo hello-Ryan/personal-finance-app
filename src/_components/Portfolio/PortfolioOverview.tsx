@@ -1,4 +1,3 @@
-"use client";
 import React from 'react';
 import Tabs from '../ui/Tabs';
 import AccountsSection from './AccountsSection';
@@ -14,12 +13,12 @@ const PortfolioOverview: React.FC = () => {
   return (
     <div className="h-[calc(100vh-4rem)]">
       <div className="py-4">
-        <Tabs tabs={portfolioTabs} defaultTab="overview">
+        {/* <Tabs tabs={portfolioTabs} defaultTab="overview">
           {(activeTab) => (
             <div>
               {activeTab === 'overview' ? (
                 <div className="grid grid-rows-2 gap-5">
-                    <PortfolioChart />
+                    
                     <AccountsSection />
                 </div>
               ) : (
@@ -27,7 +26,11 @@ const PortfolioOverview: React.FC = () => {
               )}
             </div>
           )}
-        </Tabs>
+        </Tabs> */}
+        <div className="grid grid-rows-2 gap-5">
+                    
+        <PortfolioChart />
+                </div>
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 import Header from "~/_components/Layout/Header";
-import MobileNav from "~/_components/Layout/MobileNav";
 import Sidebar from "~/_components/Layout/Sidebar";
 import PortfolioOverview from "~/_components/Portfolio/PortfolioOverview";
 
@@ -16,7 +15,7 @@ export default async function Page() {
         <main className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between md:hidden mb-4">
             <h1 className="text-2xl font-bold">Portfolio</h1>
-            <MobileNav />
+            {/* <MobileNav /> */}
           </div>
           
           <PortfolioOverview />

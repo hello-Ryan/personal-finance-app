@@ -14,22 +14,7 @@ interface Account {
 
 const AccountsSection: React.FC = () => {
   const accounts: Account[] = [
-    {
-      id: '1',
-      name: 'Coinbase',
-      icon: <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs">CB</div>,
-      balance: 3.42,
-      change: 5.99,
-      lastUpdated: '56 seconds ago'
-    },
-    {
-      id: '2',
-      name: 'me',
-      icon: <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 text-xs">M</div>,
-      balance: 0.00,
-      change: 0,
-      lastUpdated: '23 hours ago'
-    }
+
   ];
 
   return (
